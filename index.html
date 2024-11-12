@@ -1,81 +1,177 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Título de la Página</title>
-    <link rel="stylesheet" href="css/main.css"> 
+    <meta charset="utf-8">
+    <title>Aplicación del Tiempo</title>
+    <!-- Enlaza los estilos de Bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    
+
+    <style>
+        body {
+            background-image: url('Imagenes/nubes2.jpeg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: white; /* Cambia el color del texto a blanco */
+        }
+        #weatherResults {
+            background-color: #24d7e0; /* Color de fondo negro claro */
+            color: #fff; /* Color del texto en blanco */
+            padding: 20px; /* Espaciado interno de 20 píxeles */
+            border-radius: 10px; /* Bordes redondeados */
+            text-align: left; /* Texto centrado */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Sombra ligera */
+            width: 300px;
+        }
+
+        #prediccionDias {
+            background-color: #24d7e0; /* Color de fondo negro claro */
+            color: #fff; /* Color del texto en blanco */
+            padding: 20px; /* Espaciado interno de 20 píxeles */
+            border-radius: 10px; /* Bordes redondeados */
+            text-align: left; /* Texto centrado */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Sombra ligera */
+            width: 700px;
+        }
+
+        #tablaPrediccion{
+            width: 100%;
+        }
+        
+        /* table {
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        } */
+
+        
+    </style>
+
 </head>
 <body>
 
-    <!-- div que coge toda la pagina -->
+    <br>
+
     <div class="container">
+        <!-- Barra de navegación -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-brand" href="#">Aplicación del Tiempo</a>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="home-link">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://openweathermap.org/api">API de OpenWeather</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
 
-        <!-- Header de la pagina -->
-        <header class="container">
-            <!-- Barra de navegación -->
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container">
-                    <a class="navbar-brand" href="index.html">El tiempo contigo</a>
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.html">Inicio</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="https://openweathermap.org/api">API de OpenWeather</a>
-                        </li>
-                    </ul>
+        <!-- Página de Inicio -->
+        <div id="home" class="mt-3">
+            <h1>Bienvenido a la Aplicación del Tiempo</h1>
+            <p>Selecciona una opción.</p>
+
+            <br>
+            <hr>
+            <br>    
+
+            <div class="d-flex justify-content-center"> <!-- Contenedor para centrar los botones -->
+                <button type="button" class="btn btn-primary btn-lg mx-2" href="#" id="search-link">Buscar Tiempo</button>
+            </div>
+
+            <br>
+            <br>
+            <br>
+
+            <h1 class="display-5">Introduce la ubicación que desees y podras saber el tiempo y temperatura 
+                actual además de las coordendas y la predicción de los proximos 5 dias. </h1>
+
+        </div>
+
+        
+
+
+        <!-- Página de Búsqueda del Tiempo -->
+        <div id="search" class="mt-3" style="display: none;">
+            <br>
+            <h2>Buscar Tiempo por Ciudad</h2>
+            <hr>
+            <br>
+            <form id="weatherForm">
+                <div class="mb-3">
+                    <label for="cityName" class="form-label">Nombre de la Ciudad</label>
+                    <input type="text" class="form-control" id="cityName" placeholder="Nombre de la Ciudad" required>
                 </div>
-            </nav>
-        </header>
+                <button id="EnviarForm" type="submit" class="btn btn-primary">Buscar</button>
+            </form>
+            
 
-        <!-- main principal de la pagina -->
-        <main>
-            <!-- Pagina de inicio para elegir opcion -->
-            <div id="index" class="mt-3">
-                <h1 class="text-white">Bienvenido a la Aplicación del Tiempo</h1>
-                <p class="text-white">Para comenzar, seleccione una opción</p>
-                <hr class="hr-white">
+            <h1 id="h1Antes" class="display-5">Aqui aparecerán los datos de la ciudad que hayas introducido </h1>
 
-                <h1 class="display-5 text-white text-center">
-                    Introduce la ubicación que desees y podras saber el tiempo y temperatura 
-                    actual además de las coordendas y la predicción de los proximos 5 dias. 
-                </h1>
+
+            <table>
+                <tr>
+                    <td style="width: 50%;">
+                        
+                    </td>
+                    <td>
+                        <!-- Resultados de la búsqueda aquí -->
+                        <div id="weatherResults" class="mt-3"></div>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                        
+                    </td>
+
+                </tr>
+
+            </table>
+            
+
+            <br>
+            <br>
+            <hr>
+            <br>
+            <br>
+
+            <table id="tablaPrediccion">
+
+                <td style="width: 33%;"></td>
+                <td style="width: 33%;"><div id="prediccionDias" class="mt-3"></div></td>
+                <td style="width: 33%;"></td>
+
+            </table>
+
+          
                 
-                <div class="d-flex justify-content-center mt-custom"> <!-- Contenedor para centrar los botones -->
-                    <button type="button" class="btn btn-primary btn-lg mx-2" href="#" id="search-link-city">Buscar Ciudad</button>
-                </div>
-                <hr class="hr-white">
+            <br>
+        </div>
 
-                <div class="container bg-light">
-                    <h1 class="display-5 text-center">
-                        El tiempo en 
-                    </h1>
-                    
-                </div>
-
-            </div>
-            <!-- Pagina de busqueda de ciudad -->
-            <div id="search" class="container">
-
-            </div>
-            <!-- Pagina de tu ubicacion -->
-            <div id="ubication" class="container">
-
-            </div>
-        </main>
-
-        <!-- Footer de la pagina -->
-        <footer class="bg-dark text-white text-center py-3">
-            <p>&copy; 2023 Derechos Reservados de OpenWeather</p>
-            <p>Para la correcta funcionalidad de la aplicación y recogida de datos, hemos usado la API de openWeather</p>
-        </footer>
+        
 
     </div>
-    <!-- Enlaces a archivos JavaScript -->
-    <script src="js/client.js"></script>
+
+    
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <footer class="bg-dark text-white text-center py-3">
+        <p>&copy; 2023 Derechos Reservados de OpenWeather</p>
+        <p>Para la correcta funcionalidad de la aplicación y recogida de datos, hemos usado la API de openWeather</p>
+    </footer>   
+
+    <!-- Enlaza jQuery y el archivo JavaScript personalizado -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="client.js"></script>
+    
 </body>
 </html>
