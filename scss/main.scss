@@ -1,0 +1,51 @@
+body {
+    background-image: url('../Imagenes/nubes2.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: white; /* Cambia el color del texto a blanco */
+}
+
+header{
+    margin-top: 20px;
+}
+
+#weatherResults {
+    background-color: #24d7e0; /* Color de fondo negro claro */
+    color: #fff; /* Color del texto en blanco */
+    padding: 20px; /* Espaciado interno de 20 píxeles */
+    border-radius: 10px; /* Bordes redondeados */
+    text-align: left; /* Texto centrado */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Sombra ligera */
+    width: 300px;
+}
+
+#prediccionDias {
+    background-color: #24d7e0; /* Color de fondo negro claro */
+    color: #fff; /* Color del texto en blanco */
+    padding: 20px; /* Espaciado interno de 20 píxeles */
+    border-radius: 10px; /* Bordes redondeados */
+    text-align: left; /* Texto centrado */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Sombra ligera */
+    width: 700px;
+}
+
+#tablaPrediccion{
+    width: 100%;
+}
+
+.hr-white {
+    height: 1px; /* Ajusta el grosor */
+    background-color: white; /* Aplica el color */
+    border: none; /* Remueve cualquier borde */
+    margin-top: 50px;
+}
+
+.mt-custom {
+    margin-top: 40px; /* Ajusta el valor como prefieras */
+}
+
+footer {
+    text-align: center;
+    margin-top: 40px;
+}
