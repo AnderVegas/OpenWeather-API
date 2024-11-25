@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    const apiKey = "43673e7d610ce2b4571acd8e02d6d9dc";
 
     // Ocultar la pagina de busqueda al iniciar la pagina
     $("#search").hide();
@@ -49,7 +50,7 @@ $(document).ready(function () {
 
                 // Hacer la solicitud para obtener el clima actual
                 $.ajax({
-                    url: `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=43673e7d610ce2b4571acd8e02d6d9dc&units=metric&lang=es`,
+                    url: `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric&lang=es`,
                     method: "GET",
                     success: function (data) {
                         displayCurrentWeather(data, "#weatherResultsMyLocation");
@@ -61,7 +62,7 @@ $(document).ready(function () {
 
                 // Hacer la solicitud para obtener la predicción de los próximos 5 días
                 $.ajax({
-                    url: `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=43673e7d610ce2b4571acd8e02d6d9dc&units=metric&lang=es`,
+                    url: `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric&lang=es`,
                     method: "GET",
                     success: function (data) {
                         displayForecast(data, "#weatherResultsMyLocation");
@@ -87,7 +88,7 @@ $(document).ready(function () {
 
         // Hacer la solicitud a la API de OpenWeather
         $.ajax({
-            url: `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=43673e7d610ce2b4571acd8e02d6d9dc&units=metric&lang=es`,
+            url: `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric&lang=es`,
             method: "GET",
             success: function(data) {
                 // Procesar y mostrar los resultados
@@ -101,7 +102,7 @@ $(document).ready(function () {
 
         // Hacer la solicitud a la API de OpenWeather para la predicción de 5 días
         $.ajax({
-            url: `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=43673e7d610ce2b4571acd8e02d6d9dc&units=metric&lang=es`,
+            url: `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${apiKey}&units=metric&lang=es`,
             method: "GET",
             success: function(data) {
                 // Procesar y mostrar la predicción de 5 días
