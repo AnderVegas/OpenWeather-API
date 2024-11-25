@@ -1,5 +1,6 @@
 $(document).ready(function () {
 
+    // Ocultar la pagina de busqueda al iniciar la pagina
     $("#search").hide();
 
     // Manejar los clics en los enlaces del menú
@@ -12,8 +13,13 @@ $(document).ready(function () {
     });
 
     $("#search-link").click(function() {
+        $("#weatherResultsSearch").hide();
         $("#index").hide();
         $("#search").show();
+        // Mostrar h1 de referencia
+        $("#h1Antes").show();
+        // Borrar barra de buscador
+        $("#cityName").val("");
 
         // Cambiar la imagen de fondo para la página de búsqueda
         $("body").css("background-image", "url('Imagenes/atardecer.jpg')");
@@ -28,55 +34,90 @@ $(document).ready(function () {
     });
 
     // Para quitar el h1 cuando se envíe el formulario
-    $("#EnviarForm").click(function() {
+    $("#enviarForm").click(function() {
         $("#h1Antes").hide();
-        $("#home").hide();
-        $("#search").show();
-        $("#weatherResultsMyLocation").show();
-        $("#prediccionDias").show();
+        $("#weatherResultsSearch").show();
     });
 
-    // Verificar si la geolocalización está disponible
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            const latitude = position.coords.latitude;
-            const longitude = position.coords.longitude;
+    // Solicitud inicial con la ubicacion actual
+    $(document).ready(function () {
+        // Verificar si la geolocalización está disponible
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
 
-            // Hacer la solicitud para obtener el clima actual
-            $.ajax({
-                url: `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=43673e7d610ce2b4571acd8e02d6d9dc&units=metric&lang=es`,
-                method: "GET",
-                success: function (data) {
-                    displayCurrentWeather(data);
-                },
-                error: function () {
-                    $("#weatherResultsMyLocation").html("<p class='text-danger'>Error al obtener el tiempo actual. Por favor, verifica tu conexión o intenta nuevamente.</p>");
-                },
-            });
+                // Hacer la solicitud para obtener el clima actual
+                $.ajax({
+                    url: `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=43673e7d610ce2b4571acd8e02d6d9dc&units=metric&lang=es`,
+                    method: "GET",
+                    success: function (data) {
+                        displayCurrentWeather(data, "#weatherResultsMyLocation");
+                    },
+                    error: function () {
+                        $("#weatherResultsMyLocation").html("<p class='text-danger'>Error al obtener el tiempo actual. Por favor, verifica tu conexión o intenta nuevamente.</p>");
+                    },
+                });
 
-            // Hacer la solicitud para obtener la predicción de los próximos 5 días
-            $.ajax({
-                url: `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=43673e7d610ce2b4571acd8e02d6d9dc&units=metric&lang=es`,
-                method: "GET",
-                success: function (data) {
-                    displayForecast(data);
-                },
-                error: function () {
-                    $("#weatherResultsMyLocation").html("<p class='text-danger'>Error al obtener la predicción. Por favor, verifica tu conexión o intenta nuevamente.</p>");
-                },
+                // Hacer la solicitud para obtener la predicción de los próximos 5 días
+                $.ajax({
+                    url: `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=43673e7d610ce2b4571acd8e02d6d9dc&units=metric&lang=es`,
+                    method: "GET",
+                    success: function (data) {
+                        displayForecast(data, "#weatherResultsMyLocation");
+                    },
+                    error: function () {
+                        $("#weatherResultsMyLocation").html("<p class='text-danger'>Error al obtener la predicción. Por favor, verifica tu conexión o intenta nuevamente.</p>");
+                    },
+                });
+            }, function(error) {
+                // Si el usuario no da permiso para compartir su ubicación
+                $("#weatherResultsMyLocation").html("<p class='text-danger'>No se pudo obtener la ubicación actual. Por favor, permite el acceso a la geolocalización.</p>");
             });
-        }, function(error) {
-            // Si el usuario no da permiso para compartir su ubicación
-            $("#weatherResultsMyLocation").html("<p class='text-danger'>No se pudo obtener la ubicación actual. Por favor, permite el acceso a la geolocalización.</p>");
+        } else {
+            $("#weatherResultsMyLocation").html("<p class='text-danger'>La geolocalización no está disponible en este navegador.</p>");
+        }
+    });
+
+    // Manejar la solicitud de búsqueda del tiempo al enviar el formulario
+    $("#weatherForm").on("submit", function(event) {
+        event.preventDefault();
+        const cityName = $("#cityName").val();
+        $("#cityName").val("");
+
+        // Hacer la solicitud a la API de OpenWeather
+        $.ajax({
+            url: `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=43673e7d610ce2b4571acd8e02d6d9dc&units=metric&lang=es`,
+            method: "GET",
+            success: function(data) {
+                // Procesar y mostrar los resultados
+                displayCurrentWeather(data, "#weatherResultsSearch");
+            },
+            error: function(err) {
+                // Manejar errores de la solicitud
+                $("#weatherResultsSearch").html("Error al obtener el tiempo. Por favor, verifica el nombre de la ciudad.");
+            }
         });
-    } else {
-        $("#weatherResultsMyLocation").html("<p class='text-danger'>La geolocalización no está disponible en este navegador.</p>");
-    }
+
+        // Hacer la solicitud a la API de OpenWeather para la predicción de 5 días
+        $.ajax({
+            url: `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=43673e7d610ce2b4571acd8e02d6d9dc&units=metric&lang=es`,
+            method: "GET",
+            success: function(data) {
+                // Procesar y mostrar la predicción de 5 días
+                displayForecast(data, "#weatherResultsSearch");
+            },
+            error: function(err) {
+                // Manejar errores de la solicitud
+                $("#weatherResultsSearch").html("Error al obtener la predicción del tiempo. Por favor, verifica el nombre de la ciudad.");
+            }
+        });
+    });
 
     // Función para mostrar el clima actual
-    function displayCurrentWeather(data) {
-        const weatherResultsMyLocation = $("#weatherResultsMyLocation");
-        weatherResultsMyLocation.empty();
+    function displayCurrentWeather(data, tablaBusqueda) {
+        const weatherResults = $(tablaBusqueda);
+        weatherResults.empty();
 
         const cityName = data.name;
         const countryCode = data.sys.country;
@@ -92,8 +133,8 @@ $(document).ready(function () {
             <h2 class="text-center mb-4">
                 Clima actual en ${cityName}, ${countryCode} <img src="${iconUrl}" alt="${countryCode}" width="20">
             </h2>`;
-        weatherResultsMyLocation.append(header);
-        weatherResultsMyLocation.append(coordsInfo);
+            weatherResults.append(header);
+            weatherResults.append(coordsInfo);
 
         // Crear la tabla con los detalles del clima
         const currentWeatherTable = `
@@ -114,13 +155,13 @@ $(document).ready(function () {
                 </tbody>
             </table>
         `;
-        weatherResultsMyLocation.append(currentWeatherTable);
+        weatherResults.append(currentWeatherTable);
     }
 
     // Función para mostrar la predicción de los próximos 5 días
-    function displayForecast(data) {
-        const weatherResultsMyLocation = $("#weatherResultsMyLocation");
-        weatherResultsMyLocation.append('<h3 class="text-center mb-4">Pronóstico para los próximos 5 días</h3>');
+    function displayForecast(data, tablaBusqueda) {
+        const weatherResults = $(tablaBusqueda);
+        weatherResults.append('<h3 class="text-center mb-4">Pronóstico para los próximos 5 días</h3>');
 
         const table = $(` 
             <table class="table table-striped table-bordered table-dark text-center">
@@ -135,7 +176,7 @@ $(document).ready(function () {
                 <tbody></tbody>
             </table>
         `);
-        weatherResultsMyLocation.append(table);
+        weatherResults.append(table);
 
         const tbody = table.find("tbody");
 
