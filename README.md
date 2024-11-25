@@ -11,9 +11,12 @@ Bienvenido a **Weather Application**, una página web para consultar el clima ac
 
 2. **Diseño Interactivo:**
    - Diseño atractivo con imágenes de fondo dinámicas.
-   - Interfaz responsiva y moderna con Bootstrap.
+   - Interfaz responsiva y moderna con Bootstrap y scss.
 
-3. **Multi-idioma (EXTRA):**
+3. **Responsiva:**
+   - Cuenta con un diseño adaptable para dispositivos moviles. 
+
+4. **Multi-idioma (EXTRA):**
    - La aplicación puede ser traducida y adaptada a otros idiomas (predeterminado: Español).
 
 ## Instalación y Uso 🚀
@@ -35,10 +38,6 @@ Bienvenido a **Weather Application**, una página web para consultar el clima ac
 3. Abre el archivo index.html:
     - Puedes abrir el archivo en cualquier navegador web para ejecutar la aplicación localmente.
 
-4. Publicar en GitHub Pages:
-    - Asegúrate de que tu repositorio esté actualizado en GitHub.
-    - Ve a Settings > Pages en tu repositorio y selecciona la rama principal para publicar la aplicación.
-
 ### Uso de la Aplicación
 1. Selecciona una de las opciones desde la pantalla de inicio:
     - Buscar una ciudad.
@@ -58,6 +57,7 @@ Bienvenido a **Weather Application**, una página web para consultar el clima ac
 ├── Imagenes/             # Imágenes de fondo y recursos gráficos
 ├── scss/
 │   └── main.scss         # Estilos personalizados en formato scss para transformarlos a css
+├── diseño/               # Diseños previos creados antes de acabar la aplicacion creados con la herramienta "Figma" 
 ├── index.html            # Archivo principal de la SPA
 └── README.md             # Documentación del proyecto
 
@@ -75,7 +75,7 @@ Para obtener tu clave API:
 ## Diseño 📐
 
 ### Vista Previa del Diseño
-El diseño previo se realizó en Figma. Puedes encontrar el archivo en la carpeta design/ del repositorio.
+El diseño previo se realizó en Figma. Puedes encontrar el archivo en la carpeta diseño/ del repositorio.
 
 
 ## Tablero de Tareas 📌
@@ -89,9 +89,6 @@ Las tareas del proyecto se gestionaron mediante un Tablero de GitHub Projects. P
 
 ## Autor ✨
 Desarrollado por Ander Vega Fernandez.
-
-## Licencia 📜
-Este proyecto está bajo la Licencia MIT - consulta el archivo LICENSE para más detalles.
 
 ¡Gracias por usar Weather Application!
 

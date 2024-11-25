@@ -139,7 +139,7 @@ $(document).ready(function () {
 
         // Crear la tabla con los detalles del clima
         const currentWeatherTable = `
-            <table class="table table-striped table-bordered table-hover table-dark">
+            <table class="table table-striped table-bordered table-hover table-dark table-current-weather">
                 <thead>
                     <tr>
                         <th>Descripción</th>
@@ -149,14 +149,15 @@ $(document).ready(function () {
                 </thead>
                 <tbody>
                     <tr>
-                        <td>${description} <img src="${iconUrl}" alt="Icono del clima" width="40"></td>
-                        <td>${temperature}°C</td>
-                        <td>${humidity}%</td>
+                        <td data-label="Descripción">${description} <img src="${iconUrl}" alt="Icono del clima" width="40"></td>
+                        <td data-label="Temperatura">${temperature}°C</td>
+                        <td data-label="Humedad">${humidity}%</td>
                     </tr>
                 </tbody>
             </table>
         `;
         weatherResults.append(currentWeatherTable);
+
     }
 
     // Función para mostrar la predicción de los próximos 5 días
@@ -165,7 +166,7 @@ $(document).ready(function () {
         weatherResults.append('<h3 class="text-center mb-4">Pronóstico para los próximos 5 días</h3>');
 
         const table = $(` 
-            <table class="table table-striped table-bordered table-dark text-center">
+            <table class="table table-striped table-bordered table-dark text-center table-responsive">
                 <thead>
                     <tr>
                         <th>Día</th>
@@ -193,13 +194,14 @@ $(document).ready(function () {
             const humidity = forecast.main.humidity;
 
             const row = `
-                <tr>
-                    <td>${day}</td>
-                    <td>${description}<img src="${iconUrl}" alt="Icono del clima" width="50"></td>
-                    <td>${temperature}</td>
-                    <td>${humidity}</td>
-                </tr>`;
-            tbody.append(row);
+            <tr>
+                <td data-label="Día">${day}</td>
+                <td data-label="Descripción">${description}<img src="${iconUrl}" alt="Icono del clima" width="50"></td>
+                <td data-label="Temperatura">${temperature}°C</td>
+                <td data-label="Humedad">${humidity}%</td>
+            </tr>`;
+        tbody.append(row);
+        
         }
     }
 });

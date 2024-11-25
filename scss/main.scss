@@ -114,3 +114,52 @@ footer {
     color: white; /* Color de texto blanco */
     width: 100%; /* Asegura que el footer ocupe todo el ancho */
 }
+
+@media (max-width: 768px) {
+    table.table-responsive thead, table.table-responsive tbody, table.table-responsive tr, table.table-responsive td, table.table-responsive th {
+        display: block; /* Los elementos se mostrarán en bloques */
+        width: 100%; /* Cada columna ocupará todo el ancho */
+    }
+
+    table.table-responsive thead tr {
+        display: none; /* Ocultar los encabezados en pantallas pequeñas */
+    }
+
+    table.table-responsive td, table.table-responsive th {
+        text-align: left; /* Mejorar la lectura */
+        padding: 10px;
+        border: none; /* Opcional: Eliminar bordes */
+    }
+
+    table.table-responsive td::before {
+        content: attr(data-label); /* Muestra los encabezados como etiquetas */
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+    }
+}
+
+/* Estilos responsivos para la tabla del día actual */
+@media (max-width: 768px) {
+    table.table-current-weather thead, table.table-current-weather tbody, table.table-current-weather tr, table.table-current-weather td, table.table-current-weather th {
+        display: block; /* Cada celda se convierte en un bloque */
+        width: 100%; /* Ocupar todo el ancho */
+    }
+
+    table.table-current-weather thead tr {
+        display: none; /* Ocultar encabezados en pantallas pequeñas */
+    }
+
+    table.table-current-weather td, table.table-current-weather th {
+        text-align: left;
+        padding: 10px;
+        border: none; /* Opcional: Eliminar bordes */
+    }
+
+    table.table-current-weather td::before {
+        content: attr(data-label); /* Mostrar encabezados como etiquetas */
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+    }
+}
