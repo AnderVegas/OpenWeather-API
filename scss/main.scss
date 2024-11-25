@@ -11,7 +11,7 @@ header{
 }
 
 #weatherResults {
-    background-color: #24d7e0; /* Color de fondo negro claro */
+    background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Degradado naranja */
     color: #fff; /* Color del texto en blanco */
     padding: 20px; /* Espaciado interno de 20 píxeles */
     border-radius: 10px; /* Bordes redondeados */
@@ -21,7 +21,7 @@ header{
 }
 
 #prediccionDias {
-    background-color: #24d7e0; /* Color de fondo negro claro */
+    background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Degradado naranja */
     color: #fff; /* Color del texto en blanco */
     padding: 20px; /* Espaciado interno de 20 píxeles */
     border-radius: 10px; /* Bordes redondeados */
@@ -43,6 +43,40 @@ header{
 
 .mt-custom {
     margin-top: 40px; /* Ajusta el valor como prefieras */
+}
+
+.forecast-buttons {
+    display: flex;
+    gap: 10px; /* Espacio entre los botones */
+    justify-content: center; /* Centra los botones horizontalmente */
+    margin: 20px 0;
+}
+
+.forecast-button {
+    background-color: #007bff; /* Color azul principal */
+    color: white; /* Color del texto */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 10px 20px; /* Tamaño del botón */
+    font-size: 16px; /* Tamaño del texto */
+    cursor: pointer; /* Cambiar cursor al pasar */
+    transition: background-color 0.3s, transform 0.2s; /* Transiciones suaves */
+}
+
+.forecast-button:hover {
+    background-color: #0056b3; /* Color azul más oscuro al pasar */
+    transform: scale(1.05); /* Efecto de aumento */
+}
+
+.forecast-button.active {
+    background-color: #ff7e5f; /* Color destacado para el botón activo */
+    font-weight: bold; /* Texto en negrita */
+}
+
+.bg-transparen {
+    background-color: rgba(128, 128, 128, 0.7); /* Gris con 50% de opacidad */
+    border-radius: 10px; /* Opcional: esquinas redondeadas */
+    padding: 20px; /* Opcional: espacio interno */
 }
 
 footer {
