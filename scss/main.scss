@@ -78,7 +78,30 @@ header{
     padding: 20px; /* Opcional: espacio interno */
 }
 
+/* Asegúrate de que el body y el html ocupen toda la altura */
+body, html {
+    height: 100%; /* Esto asegura que ocupe toda la altura disponible */
+    margin: 0; /* Elimina márgenes */
+}
+
+/* Contenedor principal de la página */
+.containerDiv {
+    min-height: 100%; /* Asegura que el contenedor ocupe al menos el 100% de la altura de la pantalla */
+    display: flex; /* Usamos flexbox para gestionar la distribución */
+    flex-direction: column; /* El contenido se distribuye de arriba a abajo */
+}
+
+/* Asegura que el contenido principal ocupe el espacio disponible y empuje el footer hacia abajo */
+main {
+    flex: 1; /* Esto hace que el main ocupe todo el espacio que queda entre el encabezado y el pie de página */
+}
+
+/* Estilos para el pie de página */
 footer {
     text-align: center;
     margin-top: 40px;
+    padding: 20px; /* Opcional: agrega un poco de espacio dentro del footer */
+    background-color: #333; /* Fondo oscuro para el pie de página */
+    color: white; /* Color de texto blanco */
+    width: 100%; /* Asegura que el footer ocupe todo el ancho */
 }

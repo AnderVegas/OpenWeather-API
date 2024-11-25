@@ -1,5 +1,7 @@
 $(document).ready(function () {
 
+    $("#search").hide();
+
     // Manejar los clics en los enlaces del menú
     $("#home-link").click(function() {
         $("#home").show();
